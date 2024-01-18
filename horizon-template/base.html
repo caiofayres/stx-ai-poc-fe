@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block custom_head_js %}
+  <script>
+    console.log("Loaded custom_head_js")
+    function HelperClickTest() {
+      var iframe = document.getElementById("footer-helper");
+      var button = document.getElementById("footer-helper-button");
+      if (iframe.style.visibility == "hidden") {
+        iframe.style.visibility = "visible";
+        button.style.background = "#8ca8c1";
+      } else {
+        iframe.style.visibility = "hidden";
+        button.style.background = "#ccc";
+      }
+    }
+  </script>
+{% endblock %}
+
+{% block footer %}
+  <div style="position: fixed; z-index:100; right: 0px; gap: 8px; bottom: 0px; display: flex; margin: 8px; flex-direction: column;">
+   	<iframe style="visibility: hidden; border-radius:16px; height:70vh; width: 25vw;" id="footer-helper" src="http://10.127.140.12:8010"></iframe>
+	  <div onclick="HelperClickTest()" id="footer-helper-button" style="align-self: end; border-radius: 50%; cursor: pointer; height: 40px; width: 40px; background: #ccc; font-size: 32px; line-height: 40px; text-align: center;">?</div>
+  </div>
+{% endblock %}
+
