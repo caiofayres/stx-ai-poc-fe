@@ -16,7 +16,7 @@ st.markdown(styl, unsafe_allow_html=True)
 
 def submit(model, temperature):
     headers = {'temperature': str(temperature), 'model': model}
-    st.session_state["session_id"] = requests.get("http://localhost:5000/session", headers=headers).text
+    st.session_state["session_id"] = requests.get("http://localhost:2000/session", headers=headers).text
     st.session_state["step"] = "chat"
 
 if "step" not in st.session_state:
@@ -48,6 +48,6 @@ if st.session_state.step == "chat":
 
 
         with st.chat_message("assistant", avatar="http://10.127.140.12:8080/static/themes/starlingx/img/favicon.png"):
-            response = requests.post("http://localhost:5000/chat", json={"message": prompt, "session_id": st.session_state.session_id}).text
+            response = requests.post("http://localhost:2000/chat", json={"message": prompt, "session_id": st.session_state.session_id}).text
             st.session_state.messages.append({"role": "assistant", "content": response, "avatar": "http://10.127.140.12:8080/static/themes/starlingx/img/favicon.png"})
             st.write(response)
