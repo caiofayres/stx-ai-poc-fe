@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  stx-chatbot-fe:
+    image: stx-chatbot-fe:1.0.3-alpha
+    container_name: stx-chatbot-fe
+    hostname: stx-chatbot-fe
+    restart: unless-stopped
+    ports:
+      - 8010:8010
