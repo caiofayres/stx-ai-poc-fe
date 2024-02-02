@@ -34,7 +34,7 @@ if st.session_state.step == "create_session":
         'Which model do you want to use?',
         ('gpt-3.5-turbo', 'gpt-4'))
     temperature = st.slider("Model temperature", min_value=0.0, max_value=2.0, value=0.5)
-    st.button("Let's go!", on_click=submit, args=[model, temperature])
+    st.button("Let's go!", on_click=submit, args=[model, temperature, host_ip])
 
 if st.session_state.step == "chat":
     if "messages" not in st.session_state:
