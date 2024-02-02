@@ -1,3 +1,5 @@
+import os
+
 import requests
 import streamlit as st
 
@@ -17,9 +19,11 @@ st.markdown(styl, unsafe_allow_html=True)
 
 def submit(model, temperature):
     headers = {'temperature': str(temperature), 'model': model}
-    st.session_state["session_id"] = requests.get("http://10.127.140.12:2000/session", headers=headers).text
+    st.session_state["session_id"] = requests.get(f"http://{host_ip}:2000/session", headers=headers).text
     st.session_state["step"] = "chat"
 
+
+host_ip = os.environ['HOST_IP']
 
 if "step" not in st.session_state:
     st.session_state["step"] = "create_session"
@@ -41,7 +45,7 @@ if st.session_state.step == "chat":
     for msg in st.session_state.messages:
         if msg["role"] == "assistant":
             st.chat_message(msg["role"],
-                            avatar="http://10.127.140.12:8080/static/themes/starlingx/img/favicon.png").write(
+                            avatar=f"http://{host_ip}:8080/static/themes/starlingx/img/favicon.png").write(
                 msg["content"])
         else:
             st.chat_message(msg["role"]).write(msg["content"])
@@ -50,9 +54,9 @@ if st.session_state.step == "chat":
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.chat_message("user").write(prompt)
 
-        with st.chat_message("assistant", avatar="http://10.127.140.12:8080/static/themes/starlingx/img/favicon.png"):
-            response = requests.post("http://10.127.140.12:2000/chat",
+        with st.chat_message("assistant", avatar=f"http://{host_ip}:8080/static/themes/starlingx/img/favicon.png"):
+            response = requests.post(f"http://{host_ip}:2000/chat",
                                      json={"message": prompt, "session_id": st.session_state.session_id}).text
             st.session_state.messages.append({"role": "assistant", "content": response,
-                                              "avatar": "http://10.127.140.12:8080/static/themes/starlingx/img/favicon.png"})
+                                              "avatar": f"http://{host_ip}:8080/static/themes/starlingx/img/favicon.png"})
             st.write(response)
