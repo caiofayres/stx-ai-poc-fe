@@ -19,7 +19,8 @@ st.markdown(styl, unsafe_allow_html=True)
 
 def submit(model, temperature, host_ip):
     headers = {'temperature': str(temperature), 'model': model}
-    st.session_state["session_id"] = requests.get(f"http://{host_ip}:2000/session", headers=headers).text
+    session_api = f'http://{host_ip}:2000/session'
+    st.session_state["session_id"] = requests.get(session_api, headers=headers).text
     st.session_state["step"] = "chat"
 
 
