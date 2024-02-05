@@ -33,7 +33,7 @@ if st.session_state.step == "create_session":
     st.write("Enter your session details")
     model = st.selectbox(
         'Which model do you want to use?',
-        ('gpt-3.5-turbo', 'gpt-4'))
+        ('gpt-3.5-turbo', 'gpt-4', 'gpt-4-turbo-preview'))
     temperature = st.slider("Model temperature", min_value=0.0, max_value=2.0, value=0.5)
     st.button("Let's go!", on_click=submit, args=[model, temperature, host_ip])
 
